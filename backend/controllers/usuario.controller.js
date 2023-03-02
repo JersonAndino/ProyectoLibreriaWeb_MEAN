@@ -38,7 +38,7 @@ var controller={
         .then(result => {
             if (!result) return res.status(404).send({message:'Credenciales incorrectas'});
             if (user==result.user && password==result.password){
-                session=req.session;
+                req.session.user=result.user;
                 session.user=req.body.user;
                 return res.status(200).send({message:'Has iniciado sesión correctamente',usuario:user});
             }
@@ -46,6 +46,9 @@ var controller={
         .catch(err => {
             return res.status(404).send({message:'Algo ha fallado'});
         })
+    },
+    getLogin:function(req,res){
+        req.session.user ? res.status(200).send({loggedIn: true}) : res.status(200).send({loggedIn: false});
     },
     logout:function(req,res){
         req.session.destroy();
