@@ -1,0 +1,19 @@
+.mensajes{
+    margin-top: 100px;
+    margin-left: 180px;
+    width: 400px;
+    background-color: rgba(56, 135, 135, 0);
+    border-radius: 20px;
+    text-align: center;
+}
+.mensajes div{
+    border-radius: 20px;
+}
+.logout{
+    background-color: aqua;
+    text-align: center;
+    border-radius: 20px;
+}
+.logout:hover{
+    background-color: rgb(64, 129, 139);
+}

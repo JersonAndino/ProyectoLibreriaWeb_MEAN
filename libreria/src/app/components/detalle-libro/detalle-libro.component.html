@@ -1,0 +1,19 @@
+<h2>DETALLE LIBRO</h2>
+
+<div class="data">
+    <h3>{{libro.nombre}}</h3>
+    <h3>{{libro.autor}}</h3>
+    <h3>{{libro.edicion}}</h3>
+    <h3>{{libro.anio}}</h3>
+    <h3>{{libro.precio}}</h3>
+    <img src="{{url+'get-imagen/'+libro.imagen}}" *ngIf="libro.imagen">
+    <p *ngIf="confirm==false">
+        <a [routerLink]="['/editar-libro',libro._id]" class="button-edit">Editar</a>
+        <a (click)="setConfirm(true)" class="button-delete">Borrar</a>
+    </p>
+    <p *ngIf="confirm==true">
+        <span class="confirm">Estas seguro de eliminar el libro?</span><br>
+        <a (click)="setConfirm(false)" class="button-edit">Cancelar</a>
+        <a (click)="borrarLibro(libro._id)" class="button-delete">Eliminar definitivamente</a>
+    </p>
+</div>

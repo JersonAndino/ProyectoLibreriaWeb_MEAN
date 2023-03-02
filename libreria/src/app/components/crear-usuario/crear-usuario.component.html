@@ -1,0 +1,35 @@
+<div class="container">
+    <h2>{{titulo}}</h2>
+    <form #usuarioForm="ngForm" (ngSubmit)="guardarUsuario(usuarioForm)">
+        <p>
+            <label for="user">user: </label>
+            <input type="text" name="user" #user="ngModel" [(ngModel)]="usuario.user" required>
+            <span *ngIf="user.touched && !user.valid">
+                user obligatorio
+            </span>
+        </p>
+        <p>
+            <label for="password">password: </label>
+            <input type="text" name="password" #password="ngModel" [(ngModel)]="usuario.password" required>
+            <span *ngIf="password.touched && !password.valid">
+                password obligatorio
+            </span>
+        </p>
+        <p>
+            <label for="nombre">Nombre: </label>
+            <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="usuario.nombre" required>
+            <span *ngIf="nombre.touched && !nombre.valid">
+                Nombre obligatorio
+            </span>
+        </p>
+        <p>
+            <label for="apellido">apellido: </label>
+            <input type="text" name="apellido" #apellido="ngModel" [(ngModel)]="usuario.apellido" required>
+            <span *ngIf="apellido.touched && !apellido.valid">
+                apellido obligatorio
+            </span>
+        </p>
+        
+        <input type="submit" value="Guardar" [disabled]="!usuarioForm.form.valid">
+    </form>
+</div>
