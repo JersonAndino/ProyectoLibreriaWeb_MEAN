@@ -3,6 +3,7 @@ var Libro=require('../models/libro');
 var fs=require('fs');
 const path=require('path');
 var Usuario=require('../models/usuario');
+const session = require('express-session');
 
 var controller={
     inicio:function(req,res){
@@ -36,23 +37,37 @@ var controller={
         if (user==null || password==null) return res.status(404).send({message:'Algo ha fallado'});
         Usuario.findOne({user,password})
         .then(result => {
-            if (!result) return res.status(404).send({message:'Credenciales incorrectas'});
+            if (!result) res.status(404).send({message:'Credenciales incorrectas'});
             if (user==result.user && password==result.password){
                 req.session.user=result.user;
                 session.user=req.body.user;
-                return res.status(200).send({message:'Has iniciado sesión correctamente',usuario:user});
+                res.status(200).send({message:'Has iniciado sesión correctamente',usuario:user,session:req.session});
             }
         })
         .catch(err => {
-            return res.status(404).send({message:'Algo ha fallado'});
+            res.status(404).send({message:'Algo ha fallado'});
         })
     },
     getLogin:function(req,res){
         req.session.user ? res.status(200).send({loggedIn: true}) : res.status(200).send({loggedIn: false});
     },
     logout:function(req,res){
-        req.session.destroy();
-        return res.send({message:"Sesion finalizada"});
+        req.session.destroy((err)=>{
+            if (err) {
+                res.status(500).send('Could not log out.');
+            } else {
+                res.status(200).send({});
+            }
+        });
+    },
+    visits:function(req,res){
+        if(req.session.page_views){
+            req.session.page_views++;
+            res.send("You visited this page " + req.session.page_views + " times");
+         } else {
+            req.session.page_views = 1;
+            res.send("Welcome to this page for the first time!");
+         }
     }
 }
 

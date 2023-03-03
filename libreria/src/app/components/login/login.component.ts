@@ -15,9 +15,9 @@ export class LoginComponent implements OnInit{
   public titulo:string;
   public us:string;
   public pwd:string;
-  public connected:boolean;
+  public connected=false;
   public messages:any;
-  public user;
+  public user:any;
 
   constructor(
     private _usuarioService:UsuarioService,
@@ -29,10 +29,14 @@ export class LoginComponent implements OnInit{
     this.pwd='';
     this.connected=false;
     this.messages=null;
-    this.user='';
+    this.user=null;
+    this._usuarioService.loggedIn.subscribe(resp =>{
+    if(resp==true){
+      this.connected=true;
+    } 
+    });
   }
   ngOnInit(): void {
-    
   }
   login(form:NgForm){
     let user = form.value.user;
@@ -42,7 +46,8 @@ export class LoginComponent implements OnInit{
         if(response.usuario){
           this.connected=true;
           this.messages={message:response.message,status:'success'};
-          this.user=response.usuario;
+          Global.session=response.session;
+          Global.user=response.session.user;
         }else{
           this.connected=false;
         }
@@ -57,13 +62,24 @@ export class LoginComponent implements OnInit{
   logout(){
     this._usuarioService.logout().subscribe(
       response=>{
+        Global.session=null;
         this.connected=false;
-        this.user='';
-        this.messages=null;
       }
       ,error=>{
         console.log(<any>error)
       }
     );
   }
+  getLogin(){
+    if(Global.session){
+      this.connected=true;
+      this.user=Global.user;
+      console.log("TRUE");
+    }else{
+      this.connected=false;
+      this.user=null;
+      console.log("FALSE");
+    }
+  }
+
 }

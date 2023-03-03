@@ -27,6 +27,7 @@ router.post('/create-user',usuarioController.saveUsuario);
 router.post('/login',usuarioController.login);
 router.get('/logout',usuarioController.logout);
 router.get('/login',usuarioController.getLogin);
+router.get('/visitas',usuarioController.visits);
 
 
 module.exports=router;
