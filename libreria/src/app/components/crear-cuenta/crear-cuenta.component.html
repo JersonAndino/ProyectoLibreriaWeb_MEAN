@@ -1,0 +1,17 @@
+<div *ngIf="connected==true" class="container">
+    <h2>{{titulo}}</h2>
+    <form #accountForm="ngForm" (ngSubmit)="guardarCuenta(accountForm)">
+        <p>
+            <label for="tipo">Tipo: </label>
+            <select name="tipo" #tipo="ngModel" [(ngModel)]="account.tipo">
+                <option value="Ahorros">Ahorros</option>
+                <option value="Corriente">Corriente</option>
+            </select>
+        </p>
+        <p>
+            <label for="account">Cuenta: </label>
+            <input type="text" name="cuenta" #cuenta="ngModel" [(ngModel)]="account.cuenta">
+        </p>
+        <input type="submit" value="Guardar" [disabled]="!accountForm.form.valid">
+    </form>
+</div>

@@ -39,8 +39,9 @@ var controller={
         .then(result => {
             if (!result) res.status(404).send({message:'Credenciales incorrectas'});
             if (user==result.user && password==result.password){
-                req.session.user=result.user;
-                session.user=req.body.user;
+                var userTemp=result;
+                delete userTemp.password;
+                req.session.user=userTemp;
                 res.status(200).send({message:'Has iniciado sesión correctamente',usuario:user,session:req.session});
             }
         })
@@ -49,7 +50,8 @@ var controller={
         })
     },
     getLogin:function(req,res){
-        req.session.user ? res.status(200).send({loggedIn: true}) : res.status(200).send({loggedIn: false});
+        req.session.user ? res.status(200).send({loggedIn: true,user:req.session.user.user,id:req.session.user._id}) : res.status(200).send({loggedIn: false});
+        
     },
     logout:function(req,res){
         req.session.destroy((err)=>{

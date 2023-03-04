@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit{
   public connected=false;
   public messages:any;
   public user:any;
-
+  public id:any;
   constructor(
     private _usuarioService:UsuarioService,
     private _router:Router,
@@ -30,10 +30,21 @@ export class LoginComponent implements OnInit{
     this.connected=false;
     this.messages=null;
     this.user=null;
+    this.id=null;
     this._usuarioService.loggedIn.subscribe(resp =>{
-    if(resp==true){
-      this.connected=true;
-    } 
+      if(resp==true){
+        this.connected=true;
+      }
+    });
+    this._usuarioService.user.subscribe(resp =>{
+      if(resp!=''){
+        this.user=resp;
+      }
+    });
+    this._usuarioService.id.subscribe(resp =>{
+      if(resp!=''){
+        this.id=resp;
+      }
     });
   }
   ngOnInit(): void {
@@ -46,8 +57,7 @@ export class LoginComponent implements OnInit{
         if(response.usuario){
           this.connected=true;
           this.messages={message:response.message,status:'success'};
-          Global.session=response.session;
-          Global.user=response.session.user;
+          this.user=response.session.user.user;
         }else{
           this.connected=false;
         }
