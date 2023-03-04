@@ -10,10 +10,21 @@
     border-radius: 20px;
 }
 .logout{
+    width: 100px;
+    margin:auto;
     background-color: aqua;
     text-align: center;
     border-radius: 20px;
 }
 .logout:hover{
     background-color: rgb(64, 129, 139);
+}
+.container{
+    margin-top: 100px;
+    width: 100%;
+    text-align: center;
+}
+.container .boton{
+    margin:auto;
+    margin-top: 10px;
 }

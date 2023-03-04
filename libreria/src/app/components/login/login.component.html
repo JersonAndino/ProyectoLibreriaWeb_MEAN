@@ -1,4 +1,4 @@
-<div *ngIf="!connected" class="container">
+<div *ngIf="connected==false" class="container">
     <h2>{{titulo}}</h2>
     <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
         <p>
@@ -15,10 +15,10 @@
                 La contraseña es obligatoria
             </span>
         </p>        
-        <input type="submit" value="ACCEDER" [disabled]="!loginForm.form.valid">
+        <input type="submit" value="ACCEDER" [disabled]="!loginForm.form.valid" class="boton">
     </form>
 </div>
-<div *ngIf="connected && user!=''" class="container">
+<div *ngIf="connected==true && user!=''" class="container">
     <h2>{{titulo}}</h2>
     <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
         <h2>Bienvenido {{user}}</h2>
@@ -26,16 +26,17 @@
             <a (click)="logout()">LOG OUT</a>
         </div>
     </form>
-</div>
-<div *ngIf="messages" class="mensajes">
-    <div *ngIf="messages.status=='success'" class="success">
-        <div>
-            <p>{{messages.message}}</p>
+    
+    <div *ngIf="messages" class="mensajes">
+        <div *ngIf="messages.status=='success'" class="success">
+            <div>
+                <p>{{messages.message}}</p>
+            </div>
         </div>
-    </div>
-    <div *ngIf="messages.status=='failed'" class="failed">
-        <div>
-            <p>{{messages.message}}</p>
+        <div *ngIf="messages.status=='failed'" class="failed">
+            <div>
+                <p>{{messages.message}}</p>
+            </div>
         </div>
     </div>
 </div>

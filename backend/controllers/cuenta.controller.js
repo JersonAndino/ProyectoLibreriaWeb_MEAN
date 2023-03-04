@@ -2,6 +2,7 @@
 var fs=require('fs');
 const path=require('path');
 var Cuenta=require('../models/cuenta');
+var Seq=require('../models/cuentasSequence');
 const session = require('express-session');
 
 var controller={
@@ -11,25 +12,36 @@ var controller={
         cuenta.user_id=params.user_id;
         cuenta.saldo=0;
         cuenta.tipo=params.tipo;
-        cuenta.cuenta=params.cuenta;
         cuenta.isActive=true;
 
+        var numCuenta;
+        Seq.findOneAndUpdate({_id:'64036ca5d874fb925225d84a'},{ $inc: { seq: 1 } },{new:true})
+        .then(ress=>{
+            var num = ress.seq;
+            var num = num.toString();
+            var numCuenta="0000000000";
+            numCuenta=numCuenta.slice(0,-num.length);
+            numCuenta=numCuenta+num;
 
-        cuenta.save()
-        .then(result => {
-            if (!result) return res.status(200).send({message:"No se ha guardado el usuario"});
-            return res.status(200).send({result});
-        })
-        .catch(err => {
-            console.log(err);
-        });   
+            cuenta.cuenta=numCuenta;
+            
+            cuenta.save()
+            .then(result => {
+                if (!result) return res.status(200).send({message:"Ha ocurrido un problema creando la cuenta"});
+                return res.status(200).send({result});
+            })
+            .catch(err => {
+                console.log(err);
+            });             
+        });
     },
     getCuentasUser:function(req,res){
-        //user_id:req.body.user_id
-        Cuenta.find({}).sort().exec()
+        var userid=req.params.id;
+        //console.log(userid);
+        Cuenta.find({user_id:userid}).sort().exec()
         .then(result => {
-            if (!result) return res.status(404).send({message:'No hay libros para mostrar'});
-            console.log(result);
+            if (!result) return res.status(404).send({message:'No se encontraron cuentas registradas'});
+            //console.log(result);
             return res.status(200).send({result});
         })
         .catch(err => {

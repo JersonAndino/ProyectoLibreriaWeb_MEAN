@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit{
   public titulo:string;
   public us:string;
   public pwd:string;
-  public connected=false;
+  public connected:any;
   public messages:any;
   public user:any;
   public id:any;
@@ -27,13 +27,14 @@ export class LoginComponent implements OnInit{
     this.titulo="LOGIN";
     this.us='';
     this.pwd='';
-    this.connected=false;
     this.messages=null;
     this.user=null;
     this.id=null;
     this._usuarioService.loggedIn.subscribe(resp =>{
       if(resp==true){
         this.connected=true;
+      }else{
+        this.connected=false;
       }
     });
     this._usuarioService.user.subscribe(resp =>{
@@ -55,6 +56,7 @@ export class LoginComponent implements OnInit{
     this._usuarioService.login(user,password).subscribe(
       response=>{
         if(response.usuario){
+          window.location.reload();
           this.connected=true;
           this.messages={message:response.message,status:'success'};
           this.user=response.session.user.user;
@@ -72,7 +74,7 @@ export class LoginComponent implements OnInit{
   logout(){
     this._usuarioService.logout().subscribe(
       response=>{
-        Global.session=null;
+        window.location.reload();
         this.connected=false;
       }
       ,error=>{
@@ -80,16 +82,4 @@ export class LoginComponent implements OnInit{
       }
     );
   }
-  getLogin(){
-    if(Global.session){
-      this.connected=true;
-      this.user=Global.user;
-      console.log("TRUE");
-    }else{
-      this.connected=false;
-      this.user=null;
-      console.log("FALSE");
-    }
-  }
-
 }

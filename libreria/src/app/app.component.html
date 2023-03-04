@@ -1,17 +1,21 @@
-<app-encabezado></app-encabezado>
-<nav id="menu">
-  <ul>
-    <li><a [routerLink]="['/inicio']">Inicio</a></li>
-    <li><a [routerLink]="['/libros']">Libros</a></li>
-    <li><a [routerLink]="['/guardar-libro']">Guardar Libro</a></li>
-    <li><a [routerLink]="['/contacto']">Contacto</a></li>
-    <li><a [routerLink]="['/guardar-usuario']">Guardar Usuario</a></li>
-    <li><a [routerLink]="['/login']">LOGIN</a></li>
-    <li><a [routerLink]="['/crear-cuenta']">CREAR CUENTA</a></li>
 
-  </ul>
-</nav>
-<section id="content">
-  <router-outlet></router-outlet>
-</section>
-<app-pie></app-pie>
+
+<div *ngIf="connected==true">
+  <app-encabezado></app-encabezado>
+  <nav id="menu">
+    <ul>
+      <li><a [routerLink]="['/inicio']">Inicio</a></li>
+      <li><a [routerLink]="['/guardar-usuario']">Guardar Usuario</a></li>
+      <li><a [routerLink]="['/login']">LOGIN</a></li>
+      <li><a [routerLink]="['/crear-cuenta']">CREAR CUENTA</a></li>
+  
+    </ul>
+  </nav>
+  <section id="content">
+    <router-outlet></router-outlet>
+  </section>  
+  <app-pie></app-pie>
+</div>
+<div *ngIf="connected==false">
+  <app-login></app-login>
+</div>

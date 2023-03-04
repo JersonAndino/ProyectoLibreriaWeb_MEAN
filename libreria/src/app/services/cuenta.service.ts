@@ -20,9 +20,18 @@ export class CuentaService{
 //http://localhost:3600/create-user
 guardarCuenta(cuenta:Cuenta):Observable<any>{
     let params=JSON.stringify(cuenta);
-    console.log(params);
+    //console.log(params);
     let headers=new HttpHeaders().set('Content-Type','application/json');
     return this._http.post(this.url+'save-cuenta',params,{headers:headers});
+}
+
+// guardar usuario
+//http://localhost:3600/create-user
+getCuentasUsuario(user_id:string):Observable<any>{
+    //let params=JSON.stringify(cuenta);
+    //console.log(params);
+    let headers=new HttpHeaders().set('Content-Type','application/json');
+    return this._http.get(this.url+'cuentas/'+user_id,{headers:headers});
 }
 
 }

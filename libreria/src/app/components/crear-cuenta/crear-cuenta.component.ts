@@ -52,8 +52,10 @@ export class CrearCuentaComponent {
     this._usuarioService.id.subscribe(resp =>{
       if(resp!=''){
         this.id=resp;
+        this.getCuentasUsuario(this.id);
       }
     });
+    
   }
   ngOnInit(): void {
   }
@@ -73,6 +75,22 @@ export class CrearCuentaComponent {
       error=>{
         console.log(<any>error);
         this.messages={message:'No se ha podido registrar la account',status:'failed'};;
+      }
+    );
+  }
+
+  getCuentasUsuario(user_id:string){
+    this._accountService.getCuentasUsuario(user_id).subscribe(
+      response=>{
+        if(response.result){
+          console.log(response.result);
+        }else{
+          console.log("ERROR 1")
+        } 
+      },
+      error=>{
+        console.log(<any>error);
+        //this.messages={message:'No se ha podido registrar la account',status:'failed'};;
       }
     );
   }
