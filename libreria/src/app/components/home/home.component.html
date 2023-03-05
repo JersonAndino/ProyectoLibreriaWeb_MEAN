@@ -1,1 +1,55 @@
-<p>home works!</p>
+<div class="row">
+<div class="col-md-8 col-sm-12">
+<div *ngFor="let cuenta of cuentas">
+    <a href="#">
+        <div class="cuenta-box">
+            <h3><b>Cuenta: </b>{{cuenta.cuenta}}</h3>
+            <h3><b>Saldo: </b>$ {{cuenta.saldo}}</h3>
+        </div>
+    </a>
+</div>
+</div>
+<!--<div class="botones">
+    <a href="#">
+        <div class="boton boton-depositar">Depositar</div>
+    </a>
+    <a href="#">
+        <div class="boton boton-transferir">Transferir</div>
+    </a>
+</div>-->
+<div class="col-md-4 col-sm-12 text-center">
+<div class="menu">
+<button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#boxTransaccion"
+      aria-controls="boxTransaccion"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+    <span class="navbar-toggler-icon">Transferir</span>
+</button>
+<div class="collapse navbar-collapse text-sm-left" id="boxTransaccion">
+    <app-transaccion></app-transaccion>
+</div>
+</div>
+<div>
+<button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#boxDeposito"
+      aria-controls="boxDeposito"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+    <span class="navbar-toggler-icon">Depositar</span>
+</button>
+<div class="collapse navbar-collapse" id="boxDeposito">
+    <app-deposito></app-deposito>
+</div>
+</div>
+</div>
+</div>
+

@@ -48,6 +48,17 @@ var controller={
             return res.status(500).send({message:'Error al recuperar los datos'});
         });
     },
+    validarCuenta:function(req,res){
+        var cuentaV=req.params.cuenta;
+        Cuenta.findOne({cuenta:cuentaV})
+        .then(result=>{
+            if (!result) return res.status(404).send({message:'No se encontraron cuentas registradas'});
+            return res.status(200).send({result});
+        })
+        .catch(err=>{
+
+        });
+    }
 }
 
 module.exports=controller;

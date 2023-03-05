@@ -9,33 +9,43 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-  providers: [UsuarioService,CuentaService,TransaccionService]
+  selector: 'app-deposito',
+  templateUrl: './deposito.component.html',
+  styleUrls: ['./deposito.component.css'],
+  providers: [UsuarioService,TransaccionService]
 })
-export class HomeComponent implements OnInit{
+export class DepositoComponent {
   public titulo:string;
   public connected=false;
   public messages:any;
   public user:any;
   public id:any;
 
+  public transaccion:Transaccion;
+  public transaccionGuardar:Transaccion;
+  public idGuardado:String;
+
   public cuentas:Cuenta[];
+  public cuentaValida:boolean;
 
   constructor(
     private _usuarioService:UsuarioService,
-    private _accountService:CuentaService,
     private _transaccionService:TransaccionService,
+    private _accountService:CuentaService,
     private _router:Router,
     private _route:ActivatedRoute
   ){
-    this.titulo="INICIO";
+    this.titulo="Depositar";
     this.connected=false;
     this.messages=null;
     this.user=null;
     this.id=null;
     this.cuentas=[];
+
+    this.transaccion=new Transaccion('','',0,new Date(),'Deposito');
+    this.transaccionGuardar=new Transaccion('','',0,new Date(),'Deposito');
+    this.idGuardado='';
+    this.cuentaValida=false;
 
     this._usuarioService.loggedIn.subscribe(resp =>{
       if(resp==true){
@@ -58,7 +68,16 @@ export class HomeComponent implements OnInit{
   ngOnInit(): void {
     
   }
-
+  doTransaccion(form:NgForm){
+    this._transaccionService.doTransaccion(this.transaccion).subscribe(
+      response=>{
+        console.log(response);
+      },
+      error=>{
+        console.log(error);
+      }
+    );
+  }
   getCuentasUsuario(user_id:string){
     this._accountService.getCuentasUsuario(user_id).subscribe(
       response=>{
@@ -74,4 +93,25 @@ export class HomeComponent implements OnInit{
       }
     );
   }
+  validarCuenta(){
+    var cuen=this.transaccion.cuenta_receptor.toString();
+    this._accountService.validarCuenta(cuen).subscribe(
+      response=>{
+        if(response.result){
+          //this.cuentas=response.result;
+          //console.log(response.result);
+          this.cuentaValida=true;
+        }else{
+          console.log("Error al recuperar los datos de sus cuentas")
+          this.cuentaValida=false;
+        } 
+      },
+      error=>{
+        console.log(<any>error);
+        this.cuentaValida=false;
+        //this.messages={message:'No se ha podido registrar la account',status:'failed'};;
+      }
+    );
+  }
 }
+

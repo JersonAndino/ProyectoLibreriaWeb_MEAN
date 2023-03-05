@@ -1,0 +1,15 @@
+<div *ngIf="connected==true" class="container">
+    <form #depositoForm="ngForm" (ngSubmit)="doTransaccion(depositoForm)">
+        <p>
+            <label for="cuenta_receptor">Depositar en: </label>
+            <select name="cuenta_receptor" #cuenta_receptor="ngModel" [(ngModel)]="transaccion.cuenta_receptor">
+                <option *ngFor="let cuenta of cuentas" value="{{cuenta.cuenta}}">{{cuenta.cuenta}}</option>
+            </select>
+        </p>
+        <p>
+            <label for="monto">Valor: </label>
+            <input type="text" name="monto" #monto="ngModel" [(ngModel)]="transaccion.monto">
+        </p>
+        <input type="submit" value="Transferir" [disabled]="!depositoForm.form.valid">
+    </form>
+</div>

@@ -16,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
 import { LoginComponent } from './components/login/login.component';
 import { CrearCuentaComponent } from './components/crear-cuenta/crear-cuenta.component';
+import { TransaccionComponent } from './components/transaccion/transaccion.component';
+import { DepositoComponent } from './components/deposito/deposito.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { CrearCuentaComponent } from './components/crear-cuenta/crear-cuenta.com
     CrearLibroComponent,
     CrearUsuarioComponent,
     LoginComponent,
-    CrearCuentaComponent
+    CrearCuentaComponent,
+    TransaccionComponent,
+    DepositoComponent
   ],
   imports: [
     BrowserModule,

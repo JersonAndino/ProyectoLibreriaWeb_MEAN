@@ -62,9 +62,9 @@ body{
     z-index: 2;
 }
 #menu ul li{
-    font-size: 24px;
+    font-size: 20px;
     display: inline-block;
-    margin: 0px 75px 0px 20px;
+    margin: 0px 10px 0px 10px;
     letter-spacing: 1px;
     line-height: 70px;
 }
@@ -77,7 +77,7 @@ body{
 }
 #menu ul li a:hover{
     color:#c7983d;
-    transform: scale(1.5,1.5);
+    transform: scale(1.1,1.1);
 }
 /*contenedor principal*/
 #content{

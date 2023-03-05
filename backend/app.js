@@ -2,8 +2,10 @@
 var express=require('express');
 var bodyParser=require('body-parser');
 var app=express();
-var librosRoutes=require('./routes/libros.routes')
-var cuentasRoutes=require('./routes/cuentas.routes')
+var librosRoutes=require('./routes/libros.routes');
+var cuentasRoutes=require('./routes/cuentas.routes');
+var transaccionesRoutes=require('./routes/transacciones.routes');
+
 //var cors = require('cors');
 //app.use(cors());
 app.use(bodyParser.urlencoded({extended:false}));
@@ -50,4 +52,5 @@ app.get('/',(req,res)=>{
 
 app.use('/',librosRoutes);
 app.use('/',cuentasRoutes);
+app.use('/',transaccionesRoutes);
 module.exports=app;
