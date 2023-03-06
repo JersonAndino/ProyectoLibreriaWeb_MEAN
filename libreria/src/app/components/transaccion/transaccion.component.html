@@ -7,8 +7,11 @@
             </select>
         </p>
         <p>
-            <label for="monto">Enviar hacia: </label>
+            <label for="monto">Monto: </label>
             <input type="text" name="monto" #monto="ngModel" [(ngModel)]="transaccion.monto">
+            <span *ngIf="monto.touched && !monto.valid">
+                El monto no es posible
+            </span>
         </p>
         <p>
             <label for="cuenta_receptor">Enviar hacia: </label>

@@ -9,7 +9,9 @@
       <li><a [routerLink]="['/crear-cuenta']">CREAR CUENTA</a></li>  
     </ul>
     
-    <span>Bienvenido, </span><a [routerLink]="['/login']">{{user}}</a>
+    <div id="user">
+      <span>Bienvenido, </span><a [routerLink]="['/login']">{{user}}</a>
+    </div>
   </nav>
   <section id="content">
     <router-outlet></router-outlet>

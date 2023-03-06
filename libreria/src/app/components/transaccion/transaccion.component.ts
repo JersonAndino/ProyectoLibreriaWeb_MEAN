@@ -94,6 +94,7 @@ export class TransaccionComponent {
     );
   }
   validarCuenta(){
+    console.log(this.transaccion);
     var cuen=this.transaccion.cuenta_receptor.toString();
     this._accountService.validarCuenta(cuen).subscribe(
       response=>{

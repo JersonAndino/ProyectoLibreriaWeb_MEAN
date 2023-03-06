@@ -56,10 +56,12 @@ body{
 #menu{
     position: absolute;
     right: -13px;
-    margin-right: 250px;
     height: 70px;
     background: transparent;
     z-index: 2;
+}
+#menu ul{
+  margin-right: 250px;
 }
 #menu ul li{
     font-size: 20px;
@@ -74,6 +76,17 @@ body{
     text-decoration: none;
     transition: all 200ms;
     text-transform: uppercase;
+}
+
+#user{
+  display: block;
+  color: #3d7dc7;
+  text-decoration: none;
+  transition: all 200ms;
+  padding: 20px;
+  top:0;
+  right: 0;
+  position: absolute;
 }
 #menu ul li a:hover{
     color:#c7983d;
