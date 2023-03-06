@@ -10,8 +10,10 @@ import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.
 import { LoginComponent } from './components/login/login.component';
 import { CrearCuentaComponent } from './components/crear-cuenta/crear-cuenta.component';
 import { CuentasComponent } from './components/cuentas/cuentas.component';
+import { SlideComponent } from './components/slide/slide.component';
 
 const routes: Routes = [
+  {path:'home',component:SlideComponent},
   {path:'inicio',component:HomeComponent},
   {path:'libros',component:LibrosComponent},
   {path:'guardar-libro',component:CrearLibroComponent},

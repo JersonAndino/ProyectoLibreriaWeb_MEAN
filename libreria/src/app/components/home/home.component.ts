@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { CuentaService } from 'src/app/services/cuenta.service';
 import { TransaccionService } from 'src/app/services/transaccion.service';
+import { SlideComponent } from '../slide/slide.component';
 import { Cuenta } from 'src/app/models/cuenta';
 import { Transaccion } from 'src/app/models/transaccion';
 import { Global } from 'src/app/services/global';
