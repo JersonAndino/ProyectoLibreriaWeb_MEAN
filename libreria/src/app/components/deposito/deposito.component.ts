@@ -71,10 +71,11 @@ export class DepositoComponent {
   doTransaccion(form:NgForm){
     this._transaccionService.doTransaccion(this.transaccion).subscribe(
       response=>{
-        console.log(response);
+        this.messages={message:'Su deposito se ha realizado con exito',status:'success'};
+        window.location.reload();
       },
       error=>{
-        console.log(error);
+        this.messages={message:'Su deposito se ha realizado con exito',status:'success'};
       }
     );
   }
