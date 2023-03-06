@@ -9,17 +9,19 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-cuentas',
+  templateUrl: './cuentas.component.html',
+  styleUrls: ['./cuentas.component.css'],
   providers: [UsuarioService,CuentaService,TransaccionService]
 })
-export class HomeComponent implements OnInit{
+export class CuentasComponent implements OnInit{
   public titulo:string;
   public connected=false;
   public messages:any;
   public user:any;
   public id:any;
+
+  public cuentas:Cuenta[];
 
   constructor(
     private _usuarioService:UsuarioService,
@@ -33,6 +35,7 @@ export class HomeComponent implements OnInit{
     this.messages=null;
     this.user=null;
     this.id=null;
+    this.cuentas=[];
 
     this._usuarioService.loggedIn.subscribe(resp =>{
       if(resp==true){
@@ -47,6 +50,7 @@ export class HomeComponent implements OnInit{
     this._usuarioService.id.subscribe(resp =>{
       if(resp!=''){
         this.id=resp;
+        this.getCuentasUsuario(this.id);
       }
     });
     
@@ -54,4 +58,21 @@ export class HomeComponent implements OnInit{
   ngOnInit(): void {
     
   }
+
+  getCuentasUsuario(user_id:string){
+    this._accountService.getCuentasUsuario(user_id).subscribe(
+      response=>{
+        if(response.result){
+          this.cuentas=response.result;
+        }else{
+          console.log("Error al recuperar los datos de sus cuentas")
+        } 
+      },
+      error=>{
+        console.log(<any>error);
+        //this.messages={message:'No se ha podido registrar la account',status:'failed'};;
+      }
+    );
+  }
 }
+

@@ -18,6 +18,7 @@ import { LoginComponent } from './components/login/login.component';
 import { CrearCuentaComponent } from './components/crear-cuenta/crear-cuenta.component';
 import { TransaccionComponent } from './components/transaccion/transaccion.component';
 import { DepositoComponent } from './components/deposito/deposito.component';
+import { CuentasComponent } from './components/cuentas/cuentas.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DepositoComponent } from './components/deposito/deposito.component';
     LoginComponent,
     CrearCuentaComponent,
     TransaccionComponent,
-    DepositoComponent
+    DepositoComponent,
+    CuentasComponent
   ],
   imports: [
     BrowserModule,

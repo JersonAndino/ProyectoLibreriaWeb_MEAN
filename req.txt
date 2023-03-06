@@ -1,0 +1,6 @@
+Control de numero de cuentas total.
+Control de monto en transferencia.
+Agregar Contactos.
+Historial de transacciones.
+Registrarse (Guardar usuario) fuera de pagina, junto con login
+Cambiar info de cuentas de componente HOME a otro componente CUENTAS
