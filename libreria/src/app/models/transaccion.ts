@@ -3,7 +3,7 @@ export class Transaccion{
         public cuenta_emisor:String,
         public cuenta_receptor:String,
         public monto:Number,
-        public fecha:Date,
+        public fecha:any,
         public tipo:String
     ){}
 }

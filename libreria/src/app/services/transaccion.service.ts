@@ -25,4 +25,9 @@ doTransaccion(transaccion:Transaccion):Observable<any>{
     let headers=new HttpHeaders().set('Content-Type','application/json');
     return this._http.post(this.url+'do-transaccion',params,{headers:headers});
 }
+
+getTransacciones(cuenta:String):Observable<any>{
+    let headers=new HttpHeaders().set('Content-Type','application/json');
+    return this._http.get(this.url+'transaccion/'+cuenta,{headers:headers});
+}
 }

@@ -66,6 +66,8 @@ export class TransaccionComponent {
       if(resp!=''){
         this.id=resp;
         this.getCuentasUsuario(this.id);
+        
+        //this.getTransacciones(this.transaccion.cuenta_emisor);
         //this.transaccion.cuenta_emisor=this.cuentas[0];
       }
     });

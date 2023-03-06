@@ -10,6 +10,7 @@ import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.
 import { LoginComponent } from './components/login/login.component';
 import { CrearCuentaComponent } from './components/crear-cuenta/crear-cuenta.component';
 import { CuentasComponent } from './components/cuentas/cuentas.component';
+import { DetalleCuentaComponent } from './components/detalle-cuenta/detalle-cuenta.component';
 
 const routes: Routes = [
   {path:'inicio',component:HomeComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'crear-cuenta',component:CrearCuentaComponent},
   {path:'cuentas',component:CuentasComponent},
+  {path:'cuentas/:cuenta',component:DetalleCuentaComponent},
   {path:'**',component:HomeComponent}
 ];
 

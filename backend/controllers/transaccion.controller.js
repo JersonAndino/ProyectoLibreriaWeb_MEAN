@@ -67,7 +67,19 @@ var controller={
                 console.log(err);
             });
         }
+    },
+    getTransaccionesByCuenta:function(req,res){
+        var cuentaV=req.params.cuenta;
+        Transaccion.find({$or:[{cuenta_emisor:cuentaV},{cuenta_receptor:cuentaV}]})
+        .then(result=>{
+            if (!result) return res.status(200).send({message:"No se pudieron encontrar detalles de la cuenta"});
+            return res.status(200).send({result});
+        })
+        .catch(err=>{
+            console.log(err);
+        });
     }
+    
 }
 
 module.exports=controller;

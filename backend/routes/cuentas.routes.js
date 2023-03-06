@@ -14,4 +14,5 @@ router.get('/cuentas/:id',cuentasController.getCuentasUser);
 // Validar una cuenta
 router.get('/validar-cuenta/:cuenta',cuentasController.validarCuenta);
 
+
 module.exports=router;

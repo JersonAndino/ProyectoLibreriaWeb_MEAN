@@ -90,7 +90,6 @@ export class CrearCuentaComponent {
       response=>{
         if(response.result){
           this.cuentas=response.result;
-          //console.log(response.result);
         }else{
           //console.log("ERROR 1")
         } 

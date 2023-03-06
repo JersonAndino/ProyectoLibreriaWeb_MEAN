@@ -1,0 +1,22 @@
+<div *ngFor="let transaccion of transacciones" class="box-trans">
+    <div class="box-head box">
+        <h3 style="width:70%">{{transaccion.tipo}}</h3>
+        <div *ngIf="parseTipo(transaccion)==true" style="width:30%" class="transferencia">        
+            <h3 class="monto" >- {{transaccion.monto}}</h3>
+        </div>
+        <div *ngIf="parseTipo(transaccion)==false" style="width:30%" class="deposito">        
+            <h3 class="monto" >+ {{transaccion.monto}}</h3>
+        </div>
+    </div>
+    <div class="box-foot box">
+        <div style="width:70%">
+            <h4>Desde: {{transaccion.cuenta_emisor}}</h4>
+            <h4>Hacia: {{transaccion.cuenta_receptor}}</h4>
+        </div>
+        <div style="width:30%">
+            <h4>Realizada en:</h4>
+            <h4>{{transaccion.fecha.anio}} - {{transaccion.fecha.mes+1}} - {{transaccion.fecha.dia}}</h4>
+        </div>
+    </div>
+
+</div>

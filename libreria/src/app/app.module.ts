@@ -19,6 +19,7 @@ import { CrearCuentaComponent } from './components/crear-cuenta/crear-cuenta.com
 import { TransaccionComponent } from './components/transaccion/transaccion.component';
 import { DepositoComponent } from './components/deposito/deposito.component';
 import { CuentasComponent } from './components/cuentas/cuentas.component';
+import { DetalleCuentaComponent } from './components/detalle-cuenta/detalle-cuenta.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CuentasComponent } from './components/cuentas/cuentas.component';
     CrearCuentaComponent,
     TransaccionComponent,
     DepositoComponent,
-    CuentasComponent
+    CuentasComponent,
+    DetalleCuentaComponent
   ],
   imports: [
     BrowserModule,
