@@ -6,10 +6,10 @@
     <ul>
       <li><a [routerLink]="['/inicio']">INICIO</a></li>
       <li><a [routerLink]="['/cuentas']">CUENTAS</a></li>
-      <li><a [routerLink]="['/login']">LOGIN</a></li>
-      <li><a [routerLink]="['/crear-cuenta']">CREAR CUENTA</a></li>
-  
+      <li><a [routerLink]="['/crear-cuenta']">CREAR CUENTA</a></li>  
     </ul>
+    
+    <span>Bienvenido, </span><a [routerLink]="['/login']">{{user}}</a>
   </nav>
   <section id="content">
     <router-outlet></router-outlet>
