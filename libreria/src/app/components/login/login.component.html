@@ -11,7 +11,7 @@
         </p>
         <p>
             <span>Contraseña: </span>
-            <input type="text" name="password" #password="ngModel" [(ngModel)]="pwd" required>
+            <input type="password" name="password" #password="ngModel" [(ngModel)]="pwd" required>
             <span *ngIf="password.touched && !password.valid">
                 La contraseña es obligatoria
             </span>

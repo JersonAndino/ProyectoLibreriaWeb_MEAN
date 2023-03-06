@@ -5,11 +5,14 @@
             <select name="cuenta_emisor" #cuenta_emisor="ngModel" [(ngModel)]="transaccion.cuenta_emisor">
                 <option *ngFor="let cuenta of cuentas" value="{{cuenta.cuenta}}">{{cuenta.cuenta}}</option>
             </select>
+            <span *ngIf="transaccion.cuenta_emisor==''">
+                Debe seleccionar una cuenta
+            </span>
         </p>
         <p>
             <label for="monto">Monto: </label>
-            <input type="text" name="monto" #monto="ngModel" [(ngModel)]="transaccion.monto">
-            <span *ngIf="monto.touched && !monto.valid">
+            <input type="text" name="monto" #monto="ngModel" [(ngModel)]="transaccion.monto" pattern="[0-9]">
+            <span *ngIf="validarMonto()==false">
                 El monto no es posible
             </span>
         </p>
@@ -18,6 +21,6 @@
             <input type="text" name="cuenta_receptor" #cuenta_receptor="ngModel" [(ngModel)]="transaccion.cuenta_receptor">
             <a (click)="validarCuenta()">VALIDAR</a>
         </p>
-        <input type="submit" value="Transferir" [disabled]="!cuentaValida==true">
+        <input type="submit" value="Transferir" [disabled]="!(cuentaValida==true && validarMonto()==true)">
     </form>
 </div>

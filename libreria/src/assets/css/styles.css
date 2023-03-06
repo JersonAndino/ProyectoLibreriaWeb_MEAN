@@ -84,6 +84,7 @@ body{
   text-decoration: none;
   transition: all 200ms;
   padding: 20px;
+  padding-right: 50px;
   top:0;
   right: 0;
   position: absolute;

@@ -38,7 +38,6 @@ getCuentasUsuario(user_id:string):Observable<any>{
 //http://localhost:3600/create-user
 validarCuenta(cuenta:string):Observable<any>{
     //let params=JSON.stringify(cuenta);
-    //console.log(params);
     let headers=new HttpHeaders().set('Content-Type','application/json');
     return this._http.get(this.url+'validar-cuenta/'+cuenta,{headers:headers});
 }
