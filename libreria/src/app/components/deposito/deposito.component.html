@@ -7,9 +7,12 @@
             </select>
         </p>
         <p>
-            <label for="monto">Valor: </label>
-            <input type="text" name="monto" #monto="ngModel" [(ngModel)]="transaccion.monto">
+            <label for="monto">Monto: </label>
+            <input type="text" name="monto" #monto="ngModel" [(ngModel)]="transaccion.monto" pattern="[0-9]">
+            <span *ngIf="validarMonto()==false">
+                El monto no es posible
+            </span>
         </p>
-        <input type="submit" value="Transferir" [disabled]="!depositoForm.form.valid">
+        <input type="submit" value="Transferir" [disabled]="!validarMonto()">
     </form>
 </div>

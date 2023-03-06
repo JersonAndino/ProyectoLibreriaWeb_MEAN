@@ -83,6 +83,7 @@ export class DepositoComponent {
       response=>{
         if(response.result){
           this.cuentas=response.result;
+          this.transaccion.cuenta_receptor=this.cuentas[0].cuenta;
         }else{
           console.log("Error al recuperar los datos de sus cuentas")
         } 
@@ -112,6 +113,13 @@ export class DepositoComponent {
         //this.messages={message:'No se ha podido registrar la account',status:'failed'};;
       }
     );
+  }
+  validarMonto():boolean{
+    if(this.transaccion.monto>0){
+      return true;
+    }else{
+      return false;
+    }
   }
 }
 

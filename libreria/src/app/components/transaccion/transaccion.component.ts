@@ -133,7 +133,7 @@ export class TransaccionComponent {
         cuentaTemp=cuenta;
       }
     }
-    if(cuentaTemp && cuentaTemp.saldo>=this.transaccion.monto){
+    if(cuentaTemp && cuentaTemp.saldo>=this.transaccion.monto && this.transaccion.monto>0){
       return true;
     }else{
       return false;
