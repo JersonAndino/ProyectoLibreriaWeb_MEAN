@@ -27,6 +27,7 @@ export class TransaccionComponent {
 
   public cuentas:Cuenta[];
   public cuentaValida:boolean;
+  public montoValido:boolean;
 
   constructor(
     private _usuarioService:UsuarioService,
@@ -46,6 +47,7 @@ export class TransaccionComponent {
     this.transaccionGuardar=new Transaccion('','',0,new Date(),'Transferencia');
     this.idGuardado='';
     this.cuentaValida=false;
+    this.montoValido=true;
 
     this._usuarioService.loggedIn.subscribe(resp =>{
       if(resp==true){
@@ -61,6 +63,7 @@ export class TransaccionComponent {
       if(resp!=''){
         this.id=resp;
         this.getCuentasUsuario(this.id);
+        //this.transaccion.cuenta_emisor=this.cuentas[0];
       }
     });
     
@@ -69,6 +72,7 @@ export class TransaccionComponent {
     
   }
   doTransaccion(form:NgForm){
+    if (this.validarMonto() && this.validarCuenta()){
     this._transaccionService.doTransaccion(this.transaccion).subscribe(
       response=>{
         console.log(response);
@@ -77,12 +81,16 @@ export class TransaccionComponent {
         console.log(error);
       }
     );
+    }else{
+      console.log("No concuerda");
+    }
   }
   getCuentasUsuario(user_id:string){
     this._accountService.getCuentasUsuario(user_id).subscribe(
       response=>{
         if(response.result){
           this.cuentas=response.result;
+          this.transaccion.cuenta_emisor=this.cuentas[0].cuenta;
         }else{
           console.log("Error al recuperar los datos de sus cuentas")
         } 
@@ -93,7 +101,8 @@ export class TransaccionComponent {
       }
     );
   }
-  validarCuenta(){
+  validarCuenta():boolean{
+    
     var cuen=this.transaccion.cuenta_receptor.toString();
     this._accountService.validarCuenta(cuen).subscribe(
       response=>{
@@ -101,17 +110,34 @@ export class TransaccionComponent {
           //this.cuentas=response.result;
           //console.log(response.result);
           this.cuentaValida=true;
+          return true;
         }else{
           console.log("Error al recuperar los datos de sus cuentas")
           this.cuentaValida=false;
+          return false;
         } 
       },
       error=>{
         console.log(<any>error);
         this.cuentaValida=false;
+        return false;
         //this.messages={message:'No se ha podido registrar la account',status:'failed'};;
       }
     );
+    return false;
+  }
+  validarMonto():boolean{
+    var cuentaTemp=null;
+    for(let cuenta of this.cuentas){
+      if(cuenta.cuenta==this.transaccion.cuenta_emisor){
+        cuentaTemp=cuenta;
+      }
+    }
+    if(cuentaTemp && cuentaTemp.saldo>=this.transaccion.monto){
+      return true;
+    }else{
+      return false;
+    }
   }
 }
 

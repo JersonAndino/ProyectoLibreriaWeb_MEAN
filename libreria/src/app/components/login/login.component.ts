@@ -19,6 +19,10 @@ export class LoginComponent implements OnInit{
   public messages:any;
   public user:any;
   public id:any;
+
+  public classLogin:string;
+  public classUsuario:string;
+
   constructor(
     private _usuarioService:UsuarioService,
     private _router:Router,
@@ -30,6 +34,10 @@ export class LoginComponent implements OnInit{
     this.messages=null;
     this.user=null;
     this.id=null;
+
+    this.classLogin="";
+    this.classUsuario="hidden";
+
     this._usuarioService.loggedIn.subscribe(resp =>{
       if(resp==true){
         this.connected=true;
@@ -82,4 +90,13 @@ export class LoginComponent implements OnInit{
       }
     );
   }
+  activarRegistroUsuario(){
+    if (this.classLogin=="hidden"){
+      this.classLogin="";
+      this.classUsuario="hidden";
+    }else{
+      this.classLogin="hidden";
+      this.classUsuario="";
+    }
+}
 }

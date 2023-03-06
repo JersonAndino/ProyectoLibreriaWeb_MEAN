@@ -46,7 +46,8 @@ var controller={
             }
         })
         .catch(err => {
-            res.status(404).send({message:'Algo ha fallado'});
+            //return res.status(404).send({message:'Algo ha fallado'});
+            console.log("ALGO SALIO MAL");
         })
     },
     getLogin:function(req,res){
