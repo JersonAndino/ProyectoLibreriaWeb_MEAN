@@ -22,6 +22,8 @@ export class CrearCuentaComponent {
   public account:Cuenta;
   public accountGuardar:Cuenta;
   public idGuardado:string;
+  public cuentas:Cuenta[];
+  public maxNumCuentas=5;
 
   constructor(
     private _usuarioService:UsuarioService,
@@ -35,9 +37,10 @@ export class CrearCuentaComponent {
     this.user=null;
     this.id=null;
     
-    this.account=new Cuenta(this.id,'','',0,false);
+    this.account=new Cuenta(this.id,'Ahorros','',0,false);
     this.accountGuardar=new Cuenta('','','',0,false);
     this.idGuardado='';
+    this.cuentas=[];
 
     this._usuarioService.loggedIn.subscribe(resp =>{
       if(resp==true){
@@ -61,31 +64,35 @@ export class CrearCuentaComponent {
   }
   guardarCuenta(form:NgForm){
     this.account.user_id=this.id;
-    console.log(this.account);
-    this._accountService.guardarCuenta(this.account).subscribe(
-      response=>{
-        if(response.result){
-          this.accountGuardar=response.result;
-          this.idGuardado=response.result._id;
-          this.messages={message:'account registrada con éxito',status:'success'};
-        }else{
-          this.messages={message:'No se ha podido registrar la account',status:'failed'};;
-        } 
-      },
-      error=>{
-        console.log(<any>error);
-        this.messages={message:'No se ha podido registrar la account',status:'failed'};;
-      }
-    );
+    if(this.cuentas.length<=5){
+      this._accountService.guardarCuenta(this.account).subscribe(
+        response=>{
+          if(response.result){
+            this.accountGuardar=response.result;
+            this.idGuardado=response.result._id;
+            this.messages={message:'Cuenta registrada con éxito',status:'success'};
+          }else{
+            this.messages={message:'No se ha podido registrar la cuenta',status:'failed'};;
+          } 
+        },
+        error=>{
+          console.log(<any>error);
+          this.messages={message:'No se ha podido registrar la cuenta',status:'failed'};
+        }
+      );
+    }else{
+      this.messages={message:'Usted ha alcanzado el numero maximo de cuentas',status:'failed'};;
+    }
   }
 
   getCuentasUsuario(user_id:string){
     this._accountService.getCuentasUsuario(user_id).subscribe(
       response=>{
         if(response.result){
-          console.log(response.result);
+          this.cuentas=response.result;
+          //console.log(response.result);
         }else{
-          console.log("ERROR 1")
+          //console.log("ERROR 1")
         } 
       },
       error=>{

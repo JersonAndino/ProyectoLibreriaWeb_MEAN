@@ -1,4 +1,7 @@
 <div *ngIf="connected==true" class="container">
+    <div class="messages" *ngIf="messagesT">
+        <div class="{{messagesT.status}}">{{messagesT.message}}</div>
+    </div>
     <form #transaccionForm="ngForm" (ngSubmit)="doTransaccion(transaccionForm)">
         <p>
             <label for="cuenta_emisor">Enviar desde: </label>
@@ -22,5 +25,8 @@
             <a (click)="validarCuenta()">VALIDAR</a>
         </p>
         <input type="submit" value="Transferir" [disabled]="!(cuentaValida==true && validarMonto()==true)">
+        <div class="messages" *ngIf="messagesV">
+            <div class="{{messagesV.status}}">{{messagesV.message}}</div>
+        </div>
     </form>
 </div>

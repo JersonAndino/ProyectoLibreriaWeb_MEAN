@@ -27,15 +27,6 @@
         <app-crear-usuario></app-crear-usuario>
         <a (click)="activarRegistroUsuario()" href="#">Volver</a>
     </div>
-</div>
-<div *ngIf="connected==true && user!=''" class="container">
-    <h2>{{titulo}}</h2>
-    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-        <h2>Bienvenido {{user}}</h2>
-        <div class="logout">
-            <a (click)="logout()">LOG OUT</a>
-        </div>
-    </form>
     
     <div *ngIf="messages" class="mensajes">
         <div *ngIf="messages.status=='success'" class="success">
@@ -50,3 +41,26 @@
         </div>
     </div>
 </div>
+<div *ngIf="connected==true && user!=''" class="container">
+    <h2>{{titulo}}</h2>
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+        <h2>Bienvenido {{user}}</h2>
+        <div class="logout">
+            <a (click)="logout()">LOG OUT</a>
+        </div>
+    </form>
+    <div *ngIf="messages" class="mensajes">
+        <div *ngIf="messages.status=='success'" class="success">
+            <div>
+                <p>{{messages.message}}</p>
+            </div>
+        </div>
+        <div *ngIf="messages.status=='failed'" class="failed">
+            <div>
+                <p>{{messages.message}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+   
+    

@@ -7,6 +7,7 @@ import { Transaccion } from 'src/app/models/transaccion';
 import { Global } from 'src/app/services/global';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-transaccion',
@@ -17,7 +18,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class TransaccionComponent {
   public titulo:string;
   public connected=false;
-  public messages:any;
+  public messagesT:any;
+  public messagesV:any;
   public user:any;
   public id:any;
 
@@ -38,7 +40,8 @@ export class TransaccionComponent {
   ){
     this.titulo="Transferir";
     this.connected=false;
-    this.messages=null;
+    this.messagesT=null;
+    this.messagesV=null;
     this.user=null;
     this.id=null;
     this.cuentas=[];
@@ -72,17 +75,23 @@ export class TransaccionComponent {
     
   }
   doTransaccion(form:NgForm){
-    if (this.validarMonto() && this.validarCuenta()){
-    this._transaccionService.doTransaccion(this.transaccion).subscribe(
-      response=>{
-        console.log(response);
-      },
-      error=>{
-        console.log(error);
-      }
-    );
+    this.messagesT=null;
+    this.validarCuenta();
+    if (this.validarMonto()==true && this.cuentaValida==true){
+      this._transaccionService.doTransaccion(this.transaccion).subscribe(
+        response=>{
+          //console.log(response);
+          this.messagesT={message:"La transaccion se ha realizado con exito",status:'success'};
+          window.location.reload();
+        },
+        error=>{
+          //console.log(error);
+          this.messagesT={message:"La transaccion no se ha podido realizar, intente mas tarde",status:'failed'};
+        }
+      );
     }else{
-      console.log("No concuerda");
+      this.messagesV={message:"Debe validar los datos ingresados",status:'failed'};
+      this.messagesT=null;
     }
   }
   getCuentasUsuario(user_id:string){
@@ -92,7 +101,7 @@ export class TransaccionComponent {
           this.cuentas=response.result;
           this.transaccion.cuenta_emisor=this.cuentas[0].cuenta;
         }else{
-          console.log("Error al recuperar los datos de sus cuentas")
+          //console.log("Error al recuperar los datos de sus cuentas")
         } 
       },
       error=>{
@@ -101,8 +110,8 @@ export class TransaccionComponent {
       }
     );
   }
-  validarCuenta():boolean{
-    
+  validarCuenta(){
+    this.messagesT=null;
     var cuen=this.transaccion.cuenta_receptor.toString();
     this._accountService.validarCuenta(cuen).subscribe(
       response=>{
@@ -110,21 +119,22 @@ export class TransaccionComponent {
           //this.cuentas=response.result;
           //console.log(response.result);
           this.cuentaValida=true;
-          return true;
+          this.messagesV=null;
         }else{
-          console.log("Error al recuperar los datos de sus cuentas")
+          //console.log("Error al recuperar los datos de sus cuentas")
           this.cuentaValida=false;
-          return false;
+          this.messagesV={message:'No se ha encontrado esta cuenta, verifique los datos ingresados',status:'failed'}
+          this.messagesT=null;
         } 
       },
       error=>{
         console.log(<any>error);
         this.cuentaValida=false;
-        return false;
+        this.messagesV={message:'No se ha encontrado esta cuenta, verifique los datos ingresados',status:'failed'}
+        this.messagesT=null;
         //this.messages={message:'No se ha podido registrar la account',status:'failed'};;
       }
     );
-    return false;
   }
   validarMonto():boolean{
     var cuentaTemp=null;
@@ -133,7 +143,7 @@ export class TransaccionComponent {
         cuentaTemp=cuenta;
       }
     }
-    if(cuentaTemp && cuentaTemp.saldo>=this.transaccion.monto){
+    if(cuentaTemp && cuentaTemp.saldo>=this.transaccion.monto && this.transaccion.monto>0){
       return true;
     }else{
       return false;

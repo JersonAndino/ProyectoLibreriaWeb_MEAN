@@ -1,4 +1,7 @@
 <div *ngIf="connected==true" class="container">
+    <div class="messages" *ngIf="messages">
+        <div class="{{messages.status}}">{{messages.message}}</div>
+    </div>
     <form #depositoForm="ngForm" (ngSubmit)="doTransaccion(depositoForm)">
         <p>
             <label for="cuenta_receptor">Depositar en: </label>
@@ -7,9 +10,12 @@
             </select>
         </p>
         <p>
-            <label for="monto">Valor: </label>
-            <input type="text" name="monto" #monto="ngModel" [(ngModel)]="transaccion.monto">
+            <label for="monto">Monto: </label>
+            <input type="text" name="monto" #monto="ngModel" [(ngModel)]="transaccion.monto" pattern="[0-9]">
+            <span *ngIf="validarMonto()==false">
+                El monto no es posible
+            </span>
         </p>
-        <input type="submit" value="Transferir" [disabled]="!depositoForm.form.valid">
+        <input type="submit" value="Transferir" [disabled]="!validarMonto()">
     </form>
 </div>
