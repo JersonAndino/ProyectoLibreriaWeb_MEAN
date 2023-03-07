@@ -85,5 +85,16 @@ export class DetalleCuentaComponent {
       return false;
     }
   }
+  desactivarCuenta():string{
+    this._accountService.desactivarCuenta(this.cuenta).subscribe(
+      response=>{
+        this._router.navigate(['/cuentas']);
+      }
+      ,error=>{
+        console.log(error);
+      }
+    );
+    return '';
+  }
 }
 

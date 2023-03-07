@@ -38,7 +38,7 @@ var controller={
     getCuentasUser:function(req,res){
         var userid=req.params.id;
         //console.log(userid);
-        Cuenta.find({user_id:userid}).sort().exec()
+        Cuenta.find({user_id:userid, isActive:true}).sort().exec()
         .then(result => {
             if (!result) return res.status(404).send({message:'No se encontraron cuentas registradas'});
             //console.log(result);
@@ -50,13 +50,24 @@ var controller={
     },
     validarCuenta:function(req,res){
         var cuentaV=req.params.cuenta;
-        Cuenta.findOne({cuenta:cuentaV})
+        Cuenta.findOne({cuenta:cuentaV, isActive:true})
         .then(result=>{
             if (!result) return res.status(404).send({message:'No se encontraron cuentas registradas'});
             return res.status(200).send({result});
         })
         .catch(err=>{
-
+            console.log(err);
+        });
+    },
+    desactivarCuenta:function(req,res){
+        var cuentaV=req.params.cuenta;
+        Cuenta.findOneAndUpdate({cuenta:cuentaV},{isActive:false},{new:true})
+        .then(result=>{
+            if (!result) return res.status(404).send({message:'No se ha podido desactivar la cuenta'});
+            return res.status(200).send({result});
+        })
+        .catch(err=>{
+            console.log(err);
         });
     }
 }

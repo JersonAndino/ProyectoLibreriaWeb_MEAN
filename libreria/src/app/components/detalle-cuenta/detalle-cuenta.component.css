@@ -22,3 +22,8 @@
     font-size: 10px;
     color: rgb(70, 70, 70);
 }
+.boton-desactivar{
+    padding: 10px;
+    background-color: blue;
+    border-radius: 10px;
+}

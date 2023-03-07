@@ -14,5 +14,8 @@ router.get('/cuentas/:id',cuentasController.getCuentasUser);
 // Validar una cuenta
 router.get('/validar-cuenta/:cuenta',cuentasController.validarCuenta);
 
+//desactivar una cuenta
+router.put('/cuentas/:cuenta', cuentasController.desactivarCuenta);
+
 
 module.exports=router;

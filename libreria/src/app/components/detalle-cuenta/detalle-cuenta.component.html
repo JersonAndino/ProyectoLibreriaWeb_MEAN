@@ -1,3 +1,7 @@
+<div *ngIf="transacciones.length==0">
+    <div>NO SE HAN REALIZADO TRANSACCIONES TODAVÍA</div>
+</div>
+<div *ngIf="transacciones.length>0">
 <div *ngFor="let transaccion of transacciones" class="box-trans">
     <div class="box-head box">
         <h3 style="width:70%">{{transaccion.tipo}}</h3>
@@ -20,3 +24,6 @@
     </div>
 
 </div>
+</div>
+<a (click)="desactivarCuenta()" class="boton-desactivar">DESACTIVAR</a>
+

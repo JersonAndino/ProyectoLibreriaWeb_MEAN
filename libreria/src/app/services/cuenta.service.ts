@@ -42,4 +42,10 @@ validarCuenta(cuenta:string):Observable<any>{
     return this._http.get(this.url+'validar-cuenta/'+cuenta,{headers:headers});
 }
 
+desactivarCuenta(cuenta:String):Observable<any>{
+    //let params=JSON.stringify(libro);
+    let headers=new HttpHeaders().set('Content-Type','application/json');
+    return this._http.put(this.url+'cuentas/'+cuenta,{headers:headers});
+}
+
 }
